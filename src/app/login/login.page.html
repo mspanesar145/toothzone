@@ -1,0 +1,75 @@
+<!--<ion-header>
+  <ion-toolbar>
+    <ion-title>login</ion-title>
+  </ion-toolbar>
+</ion-header>-->
+<ion-content class="main-content" style="--background:  url('../../assets/background.png') no-repeat center center / cover;">
+  <form class="login-frm" #form="ngForm" [formGroup]="validations_form" >
+      <ion-grid>
+        <ion-row>
+              <ion-col style="height: 20px;"></ion-col>
+        </ion-row>
+        <ion-row>
+          <ion-col class="ion-text-center">
+             <!-- <ion-img src="assets/images/logo.png" class="ion-text-center logo"></ion-img>-->
+             <div class="logo-container">
+                <img src="assets/logo.png" class="ion-text-center logo" />
+             </div> 
+          </ion-col>
+        </ion-row>
+          <ion-row justify-content-center>
+            <ion-col>
+              <div ion-text-center>
+                <h3 class="ion-text-center tag-h3 text-white auth-title-text">LOGIN</h3>
+              </div>
+            </ion-col>
+          </ion-row>
+            <ion-row>   
+                <ion-col>
+                    <ion-item class="input-border">
+                        <ion-input formControlName="username" name="phone" type="phoneNumber" placeholder="Phone Number" class="white-color textfielf-text"> </ion-input>
+                        <ion-icon name="call-outline" class="white-color" style="transform: rotate(270deg);"></ion-icon>
+                      </ion-item>
+                </ion-col>
+                <span class="error ion-padding" *ngIf="isSubmitted && errorControl.username.errors?.required">
+                  Email Address is required.
+                </span>
+
+            </ion-row>
+
+            <ion-row>
+              <ion-col>
+                  <ion-button class="btn-label-color rounded-button action-btn" style="--background:#FFFFFF" expand="block" type="submit"  (click)="emailSignInPressed()"> SIGN IN</ion-button>
+              </ion-col>
+            </ion-row>
+              
+            <ion-row>
+              <ion-col style="text-align:center;">
+                  <label class="white-color">or</label>
+              </ion-col>
+            </ion-row>   
+            <ion-row>
+              <ion-col>
+                  <ion-button class="white-color rounded-button action-btn" style="--background:#DC3236" expand="block" type="submit">LOGIN WITH GOOGLE</ion-button>
+              </ion-col>
+            </ion-row>
+
+            <ion-row>
+              <ion-col>
+                  <ion-button class="white-color rounded-button action-btn" style="--background:#3D599B; --border-radius: 20px;" expand="block" type="submit" >LOGIN WITH FACEBOOK</ion-button>
+              </ion-col>
+            </ion-row>
+            <ion-row>
+              <ion-col style="text-align: CENTER;">
+                  <label class="action-label-text">Don't have an account ? 
+                      <ion-router-link href="signup" class="white-color" style="border-bottom: 1px solid white;" expand="small" type="submit">Sign Up</ion-router-link>
+                  </label>
+              </ion-col>
+            </ion-row>
+            <ion-row>
+                <ion-col style="height: 20px;"></ion-col>
+          </ion-row>
+  
+        </ion-grid>
+  </form>
+</ion-content>

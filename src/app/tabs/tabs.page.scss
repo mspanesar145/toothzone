@@ -1,1 +1,19 @@
+.tab-selected{
+    --background: #137B75;
+    --color: white;
+    color: white;
+}
 
+ion-tab-button {
+    --background: #137B75;
+    --color: white;
+}
+
+ion-tab-bar ion-label {
+    font-size: 10px;
+    font-family: 'Poppins-Regular';
+}
+
+ion-tab-button a:hover {
+    color: white !important;
+}
