@@ -37,6 +37,10 @@ const routes: Routes = [
   {
     path: 'submit-query',
     loadChildren: () => import('./submit-query/submit-query.module').then( m => m.SubmitQueryPageModule)
+  },
+  {
+    path: 'phone-verify',
+    loadChildren: () => import('./phone-verify/phone-verify.module').then( m => m.PhoneVerifyPageModule)
   }
 ];
 @NgModule({

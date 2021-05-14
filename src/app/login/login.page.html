@@ -4,7 +4,7 @@
   </ion-toolbar>
 </ion-header>-->
 <ion-content class="main-content" style="--background:  url('../../assets/background.png') no-repeat center center / cover;">
-  <form class="login-frm" #form="ngForm" [formGroup]="validations_form" >
+  <form class="login-frm" #form="ngForm" [formGroup]="validations_form" (ngSubmit)="sendOtp(form)">
       <ion-grid>
         <ion-row>
               <ion-col style="height: 20px;"></ion-col>
@@ -27,19 +27,14 @@
             <ion-row>   
                 <ion-col>
                     <ion-item class="input-border">
-                        <ion-input formControlName="username" name="phone" type="phoneNumber" placeholder="Phone Number" class="white-color textfielf-text"> </ion-input>
+                        <ion-input formControlName="phoneNumber" name="phoneNumber" type="phoneNumber" placeholder="Phone Number" class="white-color textfielf-text"> </ion-input>
                         <ion-icon name="call-outline" class="white-color" style="transform: rotate(270deg);"></ion-icon>
                       </ion-item>
                 </ion-col>
-                <span class="error ion-padding" *ngIf="isSubmitted && errorControl.username.errors?.required">
-                  Email Address is required.
-                </span>
-
             </ion-row>
-
             <ion-row>
               <ion-col>
-                  <ion-button class="btn-label-color rounded-button action-btn" style="--background:#FFFFFF" expand="block" type="submit"  (click)="emailSignInPressed()"> SIGN IN</ion-button>
+                  <ion-button class="btn-label-color rounded-button action-btn" style="--background:#FFFFFF" expand="block" type="submit"> SIGN IN</ion-button>
               </ion-col>
             </ion-row>
               

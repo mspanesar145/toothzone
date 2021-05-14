@@ -1,8 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { Validators, FormBuilder, FormGroup, FormControl } from '@angular/forms';
 import { Router } from '@angular/router';
-import {  get, set, remove } from '../api/storage.service';
+import {  set, remove } from '../api/storage.service';
 import { Platform, NavController } from '@ionic/angular';
+import { RestService } from '../api/rest.service';
+import { MiscService } from '../api/misc.service';
 
 @Component({
   selector: 'app-login',
@@ -18,11 +20,11 @@ export class LoginPage implements OnInit {
   public platformType : String = "";
 
 
-  constructor(private navControl: NavController, private router: Router, private formBuilder : FormBuilder,public platform: Platform) { }
+  constructor(private navControl: NavController, private router: Router, private formBuilder : FormBuilder, private restService: RestService, public miscService : MiscService,public platform: Platform) { }
 
   ngOnInit() {
     this.validations_form = this.formBuilder.group({
-      username: new FormControl('', Validators.compose([
+      phoneNumber: new FormControl('', Validators.compose([
         Validators.required
       ]))
     });
@@ -34,6 +36,28 @@ export class LoginPage implements OnInit {
 
   emailSignInPressed() {
     console.log("Login Pressed");
-    this.router.navigateByUrl('/app/tabs/home');
+    this.router.navigateByUrl('phone-verify');
   }
+  sendOtp(form){
+    // debugger;
+     this.isSubmitted = true;
+     if (!this.validations_form.valid) {
+       return false;
+     } else {
+       this.miscService.presentLoading("logging in...");
+       this.restService.login(form.value).subscribe((res)=>{
+        this.miscService.dismissLoading();
+
+         if (res.status == 1) {
+           console.log(form.value.phoneNumber)
+           remove("phoneNumber");
+           set("phoneNumber",form.value.phoneNumber)
+           this.router.navigateByUrl('phone-verify');
+          }else {
+           alert("Wrong username or password.");
+         }
+       });
+   
+     }
+   }
 }
