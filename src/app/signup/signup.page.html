@@ -4,7 +4,7 @@
   </ion-toolbar>
 </ion-header>-->
 <ion-content class="main-content" style="--background: url('../../assets/background.png') no-repeat center center / cover;">
-  <form #form="ngForm" [formGroup]="validations_form" (ngSubmit)="login(form)" >
+  <form #form="ngForm" [formGroup]="validations_form" (ngSubmit)="registerUser(form)" >
       <ion-grid>
           <ion-row>
               <ion-col style="height: 20px;"></ion-col>
@@ -27,23 +27,31 @@
               <ion-row>   
                   <ion-col>
                       <ion-item class="input-border">
-                          <ion-input formControlName="username" name="name" type="text" placeholder="Name" class="white-color textfielf-text"> </ion-input>
+                          <ion-input formControlName="name" name="name" type="text" placeholder="Name" class="white-color textfielf-text"> </ion-input>
                           <ion-icon name="person-outline" class="white-color"></ion-icon>
                         </ion-item>
                   </ion-col>
               </ion-row>
+              <span class="error ion-padding" *ngIf="isSubmitted && errorControl.name.errors?.required">
+                Name is required.
+              </span>
+  
               <ion-row>   
                 <ion-col>
                     <ion-item class="input-border">
-                        <ion-input formControlName="phone" name="phone" type="phoneNumber" placeholder="Phone Number" class="white-color textfielf-text"> </ion-input>
+                        <ion-input formControlName="phone_number" name="phone_number" type="text" placeholder="Phone Number" class="white-color textfielf-text"></ion-input>
                         <ion-icon name="call-outline" class="white-color" style="transform: rotate(270deg);"></ion-icon>
                       </ion-item>
                 </ion-col>
               </ion-row>
+              <span class="error ion-padding" *ngIf="isSubmitted && errorControl.phone_number.errors?.required">
+                Phone is required.
+              </span>
+  
 
               <ion-row>   
                   <ion-col>
-                      <ion-radio-group value="Male">      
+                      <ion-radio-group value="Male" formControlName="gender" name="gender">      
 
                             <div class="gender-item-container">
                                 <ion-radio [color]="myClass" slot="start" value="Male"></ion-radio>
@@ -59,19 +67,22 @@
                   </ion-col>
   
                 </ion-row>
+                <span class="error ion-padding" *ngIf="isSubmitted && errorControl.gender.errors?.required">
+                    Gender is required.
+                  </span>
   
               <ion-row>   
               <ion-col>
                   <ion-item class="input-border">
-                      <ion-input formControlName="dob" name="dob" type="text" placeholder="Date of birth" class="white-color textfielf-text" [readonly]="true"> </ion-input>
+                      <ion-label class="dob-placeholder">Date of birth</ion-label>
+                      <ion-datetime style="width: 100%;" (ionChange)="datechange()" class="white-color" formControlName="date_of_birth" name="date_of_birth"></ion-datetime>
                       <ion-icon name="calendar-outline" class="white-color"></ion-icon> 
                    </ion-item>
               </ion-col>
-              <span class="error ion-padding" *ngIf="isSubmitted && errorControl.dob.errors?.required">
-                Date of birth is required.
-              </span>
-
             </ion-row>
+            <span class="error ion-padding" *ngIf="isSubmitted && errorControl.date_of_birth.errors?.required">
+              Date of birth is required.
+            </span>
             <ion-row>   
               <ion-col>
                   <ion-item class="input-border">
@@ -79,38 +90,50 @@
                       <ion-icon name="location-outline" class="white-color"></ion-icon>
                     </ion-item>
               </ion-col>
-              <span class="error ion-padding" *ngIf="isSubmitted && errorControl.address.errors?.required">
-                Address is required.
-              </span>
           </ion-row>
+          <span class="error ion-padding" *ngIf="isSubmitted && errorControl.address.errors?.required">
+            Address is required.
+          </span>
           <ion-row>   
               <ion-col>
                   <ion-item class="input-border">
                       <ion-select formControlName="state" name="state" type="text" placeholder="State" class="white-color textfielf-text" style="width: 100%;"> 
-                          <ion-option></ion-option>
-                          <ion-option>Vivky</ion-option>
+                          <ion-select-option value="">Select State</ion-select-option>
+                          <ion-select-option value="Vivky">Vivky</ion-select-option>
                       </ion-select>
                     </ion-item>
               </ion-col>
-              <span class="error ion-padding" *ngIf="isSubmitted && errorControl.address.errors?.required">
-                State is required.
-              </span>
           </ion-row>
+          <span class="error ion-padding" *ngIf="isSubmitted && errorControl.state.errors?.required">
+            State is required.
+          </span>
+          <!--ion-row>
+            <ion-col>
+                <ion-item class="input-border">
+                  <ion-select name="state" placeholder="Select" [placeholder]="selectedState.name" [(ngModel)]="selectedState.id">
+                    
+                      <ion-select-option *ngFor="let item of states" value="{{item.id}}" [attr.selected]="item.id == selectedState.id">{{item.name}}</ion-select-option>
+
+                    </ion-select>
+                  </ion-item>
+            </ion-col>
+          </ion-row-->
 
           <ion-row>   
             <ion-col>
                 <ion-item class="input-border">
-                    <ion-input formControlName="postCode" name="postCode" type="text" placeholder="Post Code" class="white-color textfielf-text"> </ion-input>
+                    <ion-input formControlName="post_code" name="post_code" type="text" placeholder="Post Code" class="white-color textfielf-text"> </ion-input>
                     <ion-icon name="ellipsis-horizontal-outline" class="white-color"></ion-icon>
                   </ion-item>
             </ion-col>
-            <span class="error ion-padding" *ngIf="isSubmitted && errorControl.postCode.errors?.required">
-              Post Code is required.
-            </span>
         </ion-row>
+        <span class="error ion-padding" *ngIf="isSubmitted && errorControl.post_code.errors?.required">
+          Post Code is required.
+        </span>
+
         <ion-row>
             <ion-col>
-                <ion-checkbox checked="true" style="margin-left: 10px; margin-right: 10px; margin-top: 10px; --background: transparent;--background-checked: white; --checkmark-color: blue; --border-color: white;"></ion-checkbox>
+                <ion-checkbox formControlName="agree_term_conditions" name="agree_term_conditions"  style="margin-left: 10px; margin-right: 10px; margin-top: 10px; --background: transparent;--background-checked: white; --checkmark-color: blue; --border-color: white;"></ion-checkbox>
                   <label class="action-label-text" style="position: absolute; top: 15px;">I agree with  
                     <ion-router-link href="/" class="white-color" style="border-bottom: 1px solid white;" expand="small" type="submit">terms and conditions</ion-router-link>
                   </label>
@@ -118,7 +141,7 @@
           </ion-row>  
         <ion-row>
           <ion-col>
-              <ion-button class="btn-label-color rounded-button action-btn" style="--background:#FFFFFF" expand="block" type="submit" (click)="emailSignupPressed()">REGISTER NOW</ion-button>
+              <ion-button class="btn-label-color rounded-button action-btn" style="--background:#FFFFFF" expand="block" type="submit">REGISTER NOW</ion-button>
           </ion-col>
         </ion-row>
                 

@@ -58,7 +58,7 @@ export class PhoneVerifyPage implements OnInit {
            if (res.status == 1) {
              this.router.navigateByUrl('home');
             }else {
-             alert("Wrong OTP code.");
+             alert(res.message);
            }
          });
 

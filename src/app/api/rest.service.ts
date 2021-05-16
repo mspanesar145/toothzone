@@ -59,4 +59,28 @@ export class RestService {
         return (response);
     }));
   }
+
+  public signup(data) : Observable<any> {
+    let api: string = "home/user_registration/format/json";
+
+    var formData: any = new FormData();
+    formData.append("name", data.name);
+    formData.append("phone_number", data.phone_number);
+    formData.append("gender", data.gender);
+    formData.append("date_of_birth", data.date_of_birth);
+    formData.append("address", data.address);
+    formData.append("state", data.state);
+    formData.append("post_code", data.post_code);
+    formData.append("agree_term_conditions", data.agree_term_conditions);
+    formData.append("X-API-KEY", this.xkey);
+    formData.append("submit","");
+    //alert(this.baseUrl + api);
+    //alert(JSON.stringify(data));
+
+    return  this.httpClient .post(this.baseUrl + api, formData).pipe(map((response: any)  => {
+      //alert(JSON.stringify(response));
+
+        return (response);
+    }));
+  }
 }

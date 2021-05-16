@@ -19,7 +19,9 @@ import { ReactiveFormsModule, FormsModule } from '@angular/forms';
     StatusBar,
     SplashScreen,
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy },
-    RestService],
+    RestService,
+  ReactiveFormsModule,
+HttpClientModule],
     
   bootstrap: [AppComponent],
 })

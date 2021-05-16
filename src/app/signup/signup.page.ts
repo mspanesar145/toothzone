@@ -3,6 +3,12 @@ import { Validators, FormBuilder, FormGroup, FormControl } from '@angular/forms'
 import { Router } from '@angular/router';
 import {  get, set, remove } from '../api/storage.service';
 import { Platform, NavController } from '@ionic/angular';
+import { RestService } from '../api/rest.service';
+import { MiscService } from '../api/misc.service';
+import { User } from '../api/user';
+//import { $ } from 'protractor';
+import * as $ from "jquery";
+
 
 
 @Component({
@@ -17,15 +23,16 @@ export class SignupPage implements OnInit {
   public isSubmitted:boolean = false;
   public deviceToken : String = "";
   public platformType : String = "";
+  public signupUser = new User();
 
-  constructor(private navControl: NavController, private router: Router, private formBuilder : FormBuilder,public platform: Platform) { }
+  constructor(private navControl: NavController, private router: Router, private formBuilder : FormBuilder, private restService: RestService, public miscService : MiscService,public platform: Platform) { }
 
   ngOnInit() {
     this.validations_form = this.formBuilder.group({
-      username: new FormControl('', Validators.compose([
+      name: new FormControl('', Validators.compose([
         Validators.required
       ])),
-      dob: new FormControl('', Validators.compose([
+      date_of_birth: new FormControl('', Validators.compose([
         Validators.required
       ])),
       address: new FormControl('', Validators.compose([
@@ -34,19 +41,62 @@ export class SignupPage implements OnInit {
       state: new FormControl('', Validators.compose([
         Validators.required
       ])),
-      phone: new FormControl('', Validators.compose([
+      phone_number: new FormControl('', Validators.compose([
         Validators.required
       ])),
-      postCode: new FormControl('', Validators.compose([
+      post_code: new FormControl('', Validators.compose([
         Validators.required
-      ]))
+      ])),
+      gender: new FormControl('', Validators.compose([
+        Validators.required
+      ])),
+      agree_term_conditions: new FormControl('false', Validators.compose([
+        Validators.requiredTrue
+      ])),
     });
   } 
 
-  emailSignupPressed() {
-    console.log("Signu Pressed");
-    this.router.navigateByUrl('/app/tabs/home');
-
+  get errorControl() {
+    return this.validations_form.controls;
   }
+  
+  datechange() {
+    console.log("Signu Pressed");
+    $(".dob-placeholder").html('');
+  }
+  registerUser(form){
+    console.log(form.value)
+    debugger;
+     this.isSubmitted = true;
+     if (!this.validations_form.valid) {
+       return false;
+     } else {
+       this.miscService.presentLoading("logging in...");
+       this.restService.signup(form.value).subscribe((res)=>{
+        this.miscService.dismissLoading();
+
+         if (res.status == 1) {
+            this.signupUser  = new User(res.data);
+            remove("User");
+            set("User",this.signupUser);
+
+            var sendOtpData = {'phoneNumber' : this.signupUser.phone_number};
+
+            this.restService.login(sendOtpData).subscribe((optResponse) => {
+                if (optResponse.status == 1) {
+                  remove("phoneNumber");
+                  set("phoneNumber",this.signupUser.phone_number)
+                  this.router.navigateByUrl('phone-verify');
+                } else {
+                  alert(optResponse.message);
+                }
+            });
+          }else {
+            alert(res.message);
+         }
+       });
+   
+     }
+   }
 
 }

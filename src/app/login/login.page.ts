@@ -54,7 +54,7 @@ export class LoginPage implements OnInit {
            set("phoneNumber",form.value.phoneNumber)
            this.router.navigateByUrl('phone-verify');
           }else {
-           alert("Wrong username or password.");
+           alert(res.message);
          }
        });
    

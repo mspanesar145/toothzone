@@ -9,6 +9,7 @@ import { SignupPageRoutingModule } from './signup-routing.module';
 import { SignupPage } from './signup.page';
 
 import { HttpClientModule } from '@angular/common/http';
+import { RestService } from '../api/rest.service';
 
 @NgModule({
   imports: [
@@ -19,6 +20,7 @@ import { HttpClientModule } from '@angular/common/http';
     ReactiveFormsModule,
     HttpClientModule
   ],
+    providers: [RestService],
     declarations: [SignupPage]
 })
 export class SignupPageModule {}
