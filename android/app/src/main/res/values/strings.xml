@@ -1,7 +1,10 @@
 <?xml version='1.0' encoding='utf-8'?>
 <resources>
     <string name="app_name">ToothZone</string>
-    <string name="title_activity_main">toothzone</string>
+    <string name="title_activity_main">ToothZone</string>
     <string name="package_name">com.lyons.toothzone</string>
     <string name="custom_url_scheme">com.lyons.toothzone</string>
+    <string name="fb_app_id">1845376738970893</string>
+  <string name="fb_app_name">Tooth Zone</string>
+
 </resources>

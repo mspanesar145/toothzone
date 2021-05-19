@@ -5,7 +5,7 @@
               <ion-icon name="home-outline"></ion-icon>
           </ion-button>
         </ion-buttons>
-        <ion-title class="ion-text-end header-title">Welcome</ion-title>
+        <ion-title class="ion-text-end header-title">Welcome {{loggedInUser.name}}</ion-title>
         <ion-buttons slot="end">
             <ion-button class="nav-bar-btns">
                 <ion-icon name="chevron-down-outline"></ion-icon>
@@ -26,12 +26,12 @@
               </ion-row>
               <ion-row>
                   <ion-col style="text-align: center;">
-                      <textarea style="width:100%;" rows="8" placeholder="Send us your query"></textarea>
+                      <textarea style="width:100%;" rows="8" placeholder="Send us your query" [(ngModel)]="query"></textarea>
                   </ion-col>
                 </ion-row>
                 <ion-row>
                     <ion-col style="text-align: center;">
-                        <ion-button class="btn-bg-color rounded-button action-btn" style="--color:#FFFFFF" expand="block" type="submit">SUBMIT</ion-button>
+                        <ion-button class="btn-bg-color rounded-button action-btn" style="--color:#FFFFFF" expand="block" (click)="submitQueryPressed()">SUBMIT</ion-button>
                       </ion-col>
                   </ion-row>
   

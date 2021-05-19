@@ -5,7 +5,7 @@
               <ion-icon name="home-outline"></ion-icon>
           </ion-button>
         </ion-buttons>
-        <ion-title class="ion-text-end header-title">Welcome</ion-title>
+        <ion-title class="ion-text-end header-title">Welcome {{loggedInUser.name}}</ion-title>
         <ion-buttons slot="end">
             <ion-button class="nav-bar-btns">
                 <ion-icon name="chevron-down-outline"></ion-icon>
@@ -33,19 +33,12 @@
         </div>
         <ion-slides pager style="height: 200px; margin-top: -10px;">
   
-            <ion-slide >
+            <ion-slide *ngFor="let promotion of promotions">
               <div class="slide">
-                <img src="assets/slider-banner.png"/>
+                <ion-img [src]="promotion.image_url"></ion-img>
               </div>
             </ion-slide>
         
-            <ion-slide>
-              <img src="assets/slider-banner.png"/>
-            </ion-slide>
-        
-            <ion-slide>
-              <img src="assets/slider-banner.png"/>
-            </ion-slide>    
           </ion-slides>
       
         <div class="book-appointment-container">

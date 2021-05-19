@@ -5,6 +5,7 @@ import { MiscService } from '../api/misc.service';
 import { Router } from '@angular/router';
 import { NavController, Platform } from '@ionic/angular';
 import {  get, set, remove } from '../api/storage.service';
+import { User } from '../api/user';
 
 
 @Component({
@@ -56,7 +57,9 @@ export class PhoneVerifyPage implements OnInit {
           this.miscService.dismissLoading();
   
            if (res.status == 1) {
-             this.router.navigateByUrl('home');
+             let user = new User(res.data);
+             set("user", user);
+             this.router.navigateByUrl('app/tabs/home');
             }else {
              alert(res.message);
            }

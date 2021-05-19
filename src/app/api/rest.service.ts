@@ -4,6 +4,8 @@ import { User } from './user';
 import { HttpClient } from '@angular/common/http';
 import { map } from 'rxjs/operators';
 import {  get, set, remove } from '../api/storage.service';
+import { DentalService } from './dental-service';
+import { Promotion } from './promotion';
 
 
 
@@ -83,4 +85,45 @@ export class RestService {
         return (response);
     }));
   }
+
+  public submitQuery(data) : Observable<any> {
+    let api: string = "home/save_user_query/format/json";
+
+    var formData: any = new FormData();
+    formData.append("user_id", data.user_id);
+    formData.append("user_query", data.query);
+    formData.append("X-API-KEY", this.xkey);
+    formData.append("submit","");
+    //alert(this.baseUrl + api);
+    //alert(JSON.stringify(data));
+
+    return  this.httpClient .post(this.baseUrl + api, formData).pipe(map((response: any)  => {
+      //alert(JSON.stringify(response));
+
+        return (response);
+    }));
+  }
+
+  public allDentalServices() : Observable<DentalService[]> {
+    let api: string = "home/get_services/format/json?X-API-KEY="+this.xkey+"&submit=";
+
+    return  this.httpClient .get(this.baseUrl + api).pipe(map((response: any)  => {
+      //alert(JSON.stringify(response));
+      let dentalServices = response.data;
+      console.log(response.data)
+        return  dentalServices.map((dentalService: DentalService) => new DentalService(dentalService));
+    }));
+  }
+
+  public allPromotions() : Observable<Promotion[]> {
+    let api: string = "home/get_promotions/format/json?X-API-KEY="+this.xkey+"&submit=";
+
+    return  this.httpClient .get(this.baseUrl + api).pipe(map((response: any)  => {
+      //alert(JSON.stringify(response));
+      let promotions = response.data;
+      console.log(response.data)
+        return  promotions.map((promotion: Promotion) => new Promotion(promotion));
+    }));
+  }
+
 }
