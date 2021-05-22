@@ -6,6 +6,7 @@ import { map } from 'rxjs/operators';
 import {  get, set, remove } from '../api/storage.service';
 import { DentalService } from './dental-service';
 import { Promotion } from './promotion';
+import { Quotation } from './quotation';
 
 
 
@@ -126,4 +127,18 @@ export class RestService {
     }));
   }
 
+
+  public getQuotations() : Observable<Quotation> {
+
+  
+    let api: string = "home/get_quotation/format/json?X-API-KEY="+this.xkey+"&submit=";
+
+    return  this.httpClient .get(this.baseUrl + api).pipe(map((response: any)  => {
+      //alert(JSON.stringify(response));
+      let promotions = response.data;
+      console.log(response.data)
+        return  promotions.map((promotion: Promotion) => new Promotion(promotion));
+    }));
+
+  }
 }

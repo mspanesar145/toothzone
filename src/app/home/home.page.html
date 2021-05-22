@@ -45,13 +45,13 @@
             <ion-row>
               <ion-col size="2">
                   <div class="user-profile-block">
-                      <img src="assets/user-img.png">
+                      <img [src]="quotation.image_url">
                   </div>  
               </ion-col>
               <ion-col size="10">
                   <ion-label>
-                      <h3 class="book-apt-label">Lorem Ipsum</h3>
-                      <p class="book-apt-sublabel">Lorem ipsum is a placeholder text commonly used</p>
+                      <h3 class="book-apt-label">{{quotation.title}}</h3>
+                      <p class="book-apt-sublabel">{{quotation.description}}</p>
                       </ion-label>      
               </ion-col>
     
