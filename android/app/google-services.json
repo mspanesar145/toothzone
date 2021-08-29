@@ -1,0 +1,46 @@
+{
+  "project_info": {
+    "project_number": "372386502090",
+    "project_id": "tooth-zone",
+    "storage_bucket": "tooth-zone.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:372386502090:android:31c36623c02ff553016b33",
+        "android_client_info": {
+          "package_name": "com.lyons.toothzone"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "372386502090-80d6mhde5mllnkdfohlrnvv0qec4ldip.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyD_SW29oKnVVQ5BwlapeDjuDtlyfkLkc68"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "372386502090-80d6mhde5mllnkdfohlrnvv0qec4ldip.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "372386502090-67klp1d5s3gnc4bi15mfimuq8cv31d9r.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.lyons.toothzone"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
